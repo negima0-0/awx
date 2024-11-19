@@ -1,0 +1,15 @@
+---
+- name: Get ARP information
+  hosts: dc1
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: Get ARP information using Junos PyEZ Table
+      juniper.device.table:        
+        file: "arp.yml"
+      register: result
+
+    - name: Print response
+      ansible.builtin.debug:
+        var: result
