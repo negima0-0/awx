@@ -1,0 +1,17 @@
+---
+- name: "Load and commit configuration"
+  hosts: dc1
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: "Load configuration data using strings and commit"
+      juniper.device.config:
+        load: "set"
+        lines:     
+          - "set system scripts op file bgp.slax"
+          - "set system scripts op file bgp-neighbor.slax"
+      register: response
+    - name: "Print the response"
+      ansible.builtin.debug:
+        var: response
